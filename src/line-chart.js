@@ -194,7 +194,8 @@ class LineChart extends AbstractChart {
               1 : 4,
             data: data.datasets[0].data,
             paddingTop,
-            paddingRight
+               paddingRight,
+			   prefix
           })}
           {this.renderVerticalLines({
             ...config,
@@ -205,7 +206,6 @@ class LineChart extends AbstractChart {
           {this.renderVerticalLabels({
             ...config,
             labels,
-			prefix,
             paddingRight,
             paddingTop
           })}
