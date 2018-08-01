@@ -45,7 +45,7 @@ class BarChart extends AbstractChart {
   render() {
     const paddingTop = 16
     const paddingRight = 64
-    const { width, height, data, style = {} } = this.props
+    const { width, height, data, style = {}, prefix = '' } = this.props
     const { borderRadius = 0 } = style
     const config = {
       width,
@@ -77,7 +77,8 @@ class BarChart extends AbstractChart {
             count: 4,
             data: data.datasets[0].data,
             paddingTop,
-            paddingRight
+			paddingRight,
+			prefix
           })}
           {this.renderVerticalLabels({
             ...config,
