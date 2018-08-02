@@ -28,7 +28,7 @@ class AbstractChart extends Component {
   }
 
   renderHorizontalLabels = config => {
-    const { count, data, height, paddingTop, paddingRight, yLabelsOffset = 12, prefix = '' } = config
+    const { count, data, height, paddingTop, paddingRight, yLabelsOffset = 12, labelFormat = (label) => label } = config
     return [...new Array(count)].map((_, i) => {
       return (
         <Text
@@ -38,7 +38,7 @@ class AbstractChart extends Component {
           y={(height * 3 / 4) - ((height - paddingTop) / count * i) + 12}
           fontSize={12}
           fill={this.props.chartConfig.color(0.5)}
-        >{prefix + (((Math.max(...data) - Math.min(...data)) / (count - 1) * i) + Math.min(...data)).toFixed(2)}
+        >{labelFormat((((Math.max(...data) - Math.min(...data)) / (count - 1) * i) + Math.min(...data)).toFixed(2))}
         </Text>
       )
     })

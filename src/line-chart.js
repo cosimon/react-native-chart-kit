@@ -28,11 +28,7 @@ class LineChart extends AbstractChart {
           />)
       })
     })
-    return (
-      output
-    )
-
-    
+    return (output);
   }
 
   renderShadow = config => {
@@ -159,7 +155,7 @@ class LineChart extends AbstractChart {
   render() {
     const paddingTop = 16
     const paddingRight = 64
-    const { width, height, data, withShadow = true, withDots = true, style = {}, prefix = '' } = this.props
+    const { width, height, data, withShadow = true, withDots = true, style = {}, labelFormat = (label) => {label} } = this.props
     const { labels = [] } = data
     const { borderRadius = 0 } = style
     const config = {
@@ -189,13 +185,12 @@ class LineChart extends AbstractChart {
             paddingRight
           })}
           {this.renderHorizontalLabels({
-            ...config,
-            count: (Math.min(...data.datasets[0].data) === Math.max(...data.datasets[0].data)) ?
-              1 : 4,
-            data: data.datasets[0].data,
-            paddingTop,
+               ...config,
+               count: (Math.min(...data.datasets[0].data) === Math.max(...data.datasets[0].data)) ? 1 : 4,
+               data: data.datasets[0].data,
+               paddingTop,
                paddingRight,
-			   prefix
+			   labelFormat
           })}
           {this.renderVerticalLines({
             ...config,
