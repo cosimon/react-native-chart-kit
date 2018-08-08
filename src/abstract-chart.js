@@ -48,6 +48,9 @@ class AbstractChart extends Component {
 		if (count === 1) {
 			return data[0];
 		}
+		if (data.length === 0) {
+			return '';
+		}
 
 		return (((Math.max(...data) - Math.min(...data)) / (count - 1) * i) + Math.min(...data)).toFixed(2);
 	}
