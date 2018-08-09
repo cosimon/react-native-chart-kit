@@ -155,7 +155,7 @@ class LineChart extends AbstractChart {
 	render() {
 		const paddingTop = 16
 		const paddingRight = 64
-		const { width, height, data, withShadow = true, withDots = true, style = {}, labelFormat = (label) => { label } } = this.props
+		const { width, height, data, withShadow = true, withDots = true, style = {}, labelFormat = (label) => label, verticalLabelFormat = (label) => label } = this.props
 		const { labels = [] } = data
 		const { borderRadius = 0 } = style
 		const config = {
@@ -202,7 +202,8 @@ class LineChart extends AbstractChart {
 						...config,
 						labels,
 						paddingRight,
-						paddingTop
+						paddingTop,
+						verticalLabelFormat,
 					})}
 					{this.renderLine({
 						...config,

@@ -56,7 +56,7 @@ class AbstractChart extends Component {
 	}
 
 	renderVerticalLabels = config => {
-		const { labels = [], width, height, paddingRight, paddingTop, horizontalOffset = 0 } = config
+		const { labels = [], width, height, paddingRight, paddingTop, horizontalOffset = 0, verticalLabelFormat = (label) => label } = config;
 		const fontSize = 12
 		return labels.map((label, i) => {
 			return (
@@ -67,7 +67,7 @@ class AbstractChart extends Component {
 					fontSize={fontSize}
 					fill={this.props.chartConfig.color(0.5)}
 					textAnchor="middle"
-				>{label}
+				>{verticalLabelFormat(label, i)}
 				</Text>
 			)
 		})
