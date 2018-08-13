@@ -32,6 +32,13 @@ class LineChart extends AbstractChart {
 	}
 
 	renderShadow = config => {
+		// If no data, don't return anything
+		if (config.data !== null) {
+			if (config.data.length === 0) {
+				return;
+			}
+		}
+
 		if (this.props.bezier) {
 			return this.renderBezierShadow(config)
 		}
@@ -85,14 +92,11 @@ class LineChart extends AbstractChart {
 		return (
 			output
 		)
-
-
 	}
 
 	getBezierLinePoints = (dataset, config) => {
 
 		const { width, height, paddingRight, paddingTop, data } = config
-		let output = [];
 		if (dataset.data.length === 0) {
 			return 'M0,0'
 		}
@@ -107,8 +111,6 @@ class LineChart extends AbstractChart {
 			return `Q ${cp_x1}, ${y(i)}, ${x_mid}, ${y_mid}` +
 				` Q ${cp_x2}, ${y(i + 1)}, ${x(i + 1)}, ${y(i + 1)}`
 		})).join(' ')
-
-
 	}
 
 	renderBezierLine = config => {
@@ -162,6 +164,30 @@ class LineChart extends AbstractChart {
 			width,
 			height,
 		}
+
+
+		if (data.datasets[0].data === null) {
+			return (
+				<View style={style}>
+					<Svg
+						height={height}
+						width={width}
+					>
+						{this.renderDefs({
+							...config,
+							...this.props.chartConfig
+						})}
+						<Rect
+							width="100%"
+							height={height}
+							rx={borderRadius}
+							ry={borderRadius}
+							fill="url(#backgroundGradient)" />
+					</Svg>
+				</View>
+			);
+		}
+		console.log("TEST");
 		return (
 			<View style={style}>
 				<Svg
@@ -209,9 +235,7 @@ class LineChart extends AbstractChart {
 						...config,
 						paddingRight,
 						paddingTop,
-						// data: data.datasets[0].data
 						data: data.datasets
-
 					})}
 					{withShadow && this.renderShadow({
 						...config,
