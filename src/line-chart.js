@@ -187,7 +187,7 @@ class LineChart extends AbstractChart {
 				</View>
 			);
 		}
-		console.log("TEST");
+
 		return (
 			<View style={style}>
 				<Svg
