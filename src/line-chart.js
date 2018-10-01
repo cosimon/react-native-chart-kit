@@ -11,10 +11,10 @@ import {
 import AbstractChart from './abstract-chart'
 
 class LineChart extends AbstractChart {
-	calcScaler = data => (Math.max(...data) - Math.min(...data)) || 1
+	calcScaler = data => (Math.max(...data) || 1)
 
 	renderDots = config => {
-		const { data, width, height, paddingTop, paddingRight } = config
+		const { data, width, height, paddingTop, paddingRight } = config;
 		let output = [];
 		data.map((dataset, index) => {
 			dataset.data.map((x, i) => {
@@ -22,7 +22,7 @@ class LineChart extends AbstractChart {
 					<Circle
 						key={Math.random()}
 						cx={paddingRight + (i * (width - paddingRight) / dataset.data.length)}
-						cy={((height / 4 * 3 * (1 - ((x - Math.min(...dataset.data)) / this.calcScaler(dataset.data)))) + paddingTop)}
+						cy={((height / 4 * 3 * (1 - (x / this.calcScaler(dataset.data)))) + paddingTop)}
 						r="4"
 						fill={this.props.chartConfig.color(0.7)}
 					/>)
@@ -51,7 +51,7 @@ class LineChart extends AbstractChart {
 					points={dataset.data.map((x, i) =>
 						(paddingRight + (i * (width - paddingRight) / dataset.data.length)) +
 						',' +
-						(((height / 4 * 3 * (1 - ((x - Math.min(...dataset.data)) / this.calcScaler(dataset.data)))) + paddingTop))
+						(((height / 4 * 3 * (1 - (x / this.calcScaler(dataset.data)))) + paddingTop))
 					).join(' ') + ` ${paddingRight + ((width - paddingRight) / dataset.data.length * (dataset.data.length - 1))},${(height / 4 * 3) + paddingTop} ${paddingRight},${(height / 4 * 3) + paddingTop}`}
 					fill="url(#fillShadowGradient)"
 					strokeWidth={0}
@@ -75,7 +75,7 @@ class LineChart extends AbstractChart {
 			const points = dataset.data.map((x, i) =>
 				(paddingRight + (i * (width - paddingRight) / dataset.data.length)) +
 				',' +
-				(((height / 4 * 3 * (1 - ((x - Math.min(...dataset.data)) / this.calcScaler(dataset.data))))) + paddingTop))
+				(((height / 4 * 3 * (1 - (x / this.calcScaler(dataset.data))))) + paddingTop))
 
 			output.push(
 				<Polyline
@@ -101,7 +101,7 @@ class LineChart extends AbstractChart {
 			return 'M0,0'
 		}
 		const x = i => Math.floor(paddingRight + i * (width - paddingRight) / dataset.data.length)
-		const y = i => Math.floor(((height / 4 * 3 * (1 - ((dataset.data[i] - Math.min(...dataset.data)) / this.calcScaler(dataset.data)))) + paddingTop))
+		const y = i => Math.floor(((height / 4 * 3 * (1 - (dataset.data[i] / this.calcScaler(dataset.data)))) + paddingTop))
 
 		return [`M${x(0)},${y(0)}`].concat(dataset.data.slice(0, -1).map((_, i) => {
 			const x_mid = (x(i) + x(i + 1)) / 2

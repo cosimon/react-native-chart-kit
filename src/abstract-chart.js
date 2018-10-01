@@ -52,7 +52,7 @@ class AbstractChart extends Component {
 			return '';
 		}
 
-		return (((Math.max(...data) - Math.min(...data)) / (count - 1) * i) + Math.min(...data)).toFixed(2);
+		return (Math.max(...data) / (count - 1) * i).toFixed(2);
 	}
 
 	renderVerticalLabels = config => {
