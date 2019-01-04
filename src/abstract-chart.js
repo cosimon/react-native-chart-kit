@@ -37,7 +37,7 @@ class AbstractChart extends Component {
 					textAnchor="end"
 					y={(height * 3 / 4) - ((height - paddingTop) / count * i) + 12}
 					fontSize={12}
-					fill={this.props.chartConfig.color(0.5)}
+					fill={this.props.chartConfig.color(0.75)}
 				>{labelFormat(this.internalLabelFormat(data, count, i))}
 				</Text>
 			)
@@ -65,7 +65,7 @@ class AbstractChart extends Component {
 					x={((width - paddingRight) / labels.length * (i)) + paddingRight + horizontalOffset}
 					y={(height * 3 / 4) + paddingTop + (fontSize * 2)}
 					fontSize={fontSize}
-					fill={this.props.chartConfig.color(0.5)}
+					fill={this.props.chartConfig.color(0.75)}
 					textAnchor="middle"
 				>{verticalLabelFormat(label, i)}
 				</Text>
