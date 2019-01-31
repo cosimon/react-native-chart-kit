@@ -5,7 +5,7 @@ import {
 	Line,
 	Text,
 	Defs,
-	Stop
+	Stop,
 } from 'react-native-svg'
 
 class AbstractChart extends Component {
@@ -28,7 +28,7 @@ class AbstractChart extends Component {
 	}
 
 	renderHorizontalLabels = config => {
-		const { count, data, height, paddingTop, paddingRight, yLabelsOffset = 12, labelFormat = (label) => label } = config
+		const { count, data, height, paddingTop, paddingRight, yLabelsOffset = 12, labelFormat = (label) => label } = config;
 		return [...new Array(count)].map((_, i) => {
 			return (
 				<Text
@@ -38,13 +38,48 @@ class AbstractChart extends Component {
 					y={(height * 3 / 4) - ((height - paddingTop) / count * i) + 12}
 					fontSize={12}
 					fill={this.props.chartConfig.color(0.75)}
-				>{labelFormat(this.internalLabelFormat(data, count, i))}
+				>{labelFormat(this._internalLabelFormat(data, count, i))}
 				</Text>
 			)
-		})
+		});
 	}
 
-	internalLabelFormat = (data, count, i) => {
+	renderYAxisLabel = config => {
+		const { yAxisLabel, paddingTop, paddingRight, height, width, yLabelsOffset = 12 } = config;
+		let x = 12;
+		let y = height / 2;
+		return (
+			<Text
+				x={x}
+				y={y}
+				fontSize={12}
+				fill={this.props.chartConfig.color(0.75)}
+				rotation="270"
+				originX={x}
+				originY={y}
+				textAnchor="middle"
+			>{yAxisLabel}</Text>
+		)
+	}
+
+	renderXAxisLabel = config => {
+		const { xAxisLabel, paddingTop, paddingRight, height, width, yLabelsOffset = 12 } = config;
+		let y = height - 5;
+		let x = width / 2;
+		return (
+			<Text
+				x={x}
+				y={y}
+				fontSize={12}
+				fill={this.props.chartConfig.color(0.75)}
+				originX={x}
+				originY={y}
+				textAnchor="middle"
+			>{xAxisLabel}</Text>
+		)
+	}
+
+	_internalLabelFormat = (data, count, i) => {
 		if (count === 1) {
 			return data[0];
 		}

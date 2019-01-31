@@ -155,9 +155,21 @@ class LineChart extends AbstractChart {
 	}
 
 	render() {
-		const paddingTop = 16
-		const paddingRight = 64
-		const { width, height, data, withShadow = true, withDots = true, style = {}, labelFormat = (label) => label, verticalLabelFormat = (label) => label } = this.props
+		const paddingTop = 10;
+		const paddingRight = 64; // Change this if I need more room on the left of the charts
+		const {
+			width,
+			height,
+			data,
+			withShadow = true,
+			withDots = true,
+			style = {},
+			labelFormat = (label) => label,
+			verticalLabelFormat = (label) => label,
+			xAxisLabel,
+			yAxisLabel,
+		} = this.props;
+
 		const { labels = [] } = data
 		const { borderRadius = 0 } = style
 		const config = {
@@ -217,6 +229,18 @@ class LineChart extends AbstractChart {
 						paddingTop,
 						paddingRight,
 						labelFormat
+					})}
+					{this.renderXAxisLabel({
+						 ...config,
+						 paddingTop,
+						 paddingRight,
+						 xAxisLabel,
+					})}
+					{this.renderYAxisLabel({
+						 ...config,
+						 paddingTop,
+						 paddingRight,
+						 yAxisLabel,
 					})}
 					{this.renderVerticalLines({
 						...config,
